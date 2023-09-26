@@ -1,0 +1,6 @@
+framework module frameworkMPosSDK {
+  umbrella header "frameworkMPosSDK.h"
+
+  export *
+  module * { export * }
+}
