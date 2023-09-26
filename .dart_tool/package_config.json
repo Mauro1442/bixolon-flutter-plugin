@@ -45,9 +45,9 @@
     },
     {
       "name": "flutter_lints",
-      "rootUri": "file:///Users/maurodirosa/.pub-cache/hosted/pub.dev/flutter_lints-1.0.4",
+      "rootUri": "file:///Users/maurodirosa/.pub-cache/hosted/pub.dev/flutter_lints-2.0.3",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "2.19"
     },
     {
       "name": "flutter_test",
@@ -57,9 +57,9 @@
     },
     {
       "name": "lints",
-      "rootUri": "file:///Users/maurodirosa/.pub-cache/hosted/pub.dev/lints-1.0.1",
+      "rootUri": "file:///Users/maurodirosa/.pub-cache/hosted/pub.dev/lints-2.1.1",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "3.0"
     },
     {
       "name": "matcher",
@@ -143,10 +143,10 @@
       "name": "bxlflutterbgatelib",
       "rootUri": "../",
       "packageUri": "lib/",
-      "languageVersion": "2.12"
+      "languageVersion": "3.1"
     }
   ],
-  "generated": "2023-09-26T13:20:47.963828Z",
+  "generated": "2023-09-26T15:15:10.534765Z",
   "generator": "pub",
   "generatorVersion": "3.1.0"
 }
