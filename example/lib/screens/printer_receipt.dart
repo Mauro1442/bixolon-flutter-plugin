@@ -1,6 +1,10 @@
+import 'dart:convert';
+
+import 'package:bxlflutterbgatelib/mposcontroller_printer.dart';
 import 'package:bxlflutterbgatelib_example/screens/printer_id_list.dart';
 import 'package:flutter/material.dart';
 import 'package:bxlflutterbgatelib_example/models/printer_connection_info.dart';
+import 'package:flutter/services.dart';
 import 'components/my_progress_indicator.dart';
 import 'components/my_gradient_button.dart';
 import 'components/my_textfield.dart';
@@ -23,6 +27,8 @@ class _ReceiptPrinterPageState extends State<ReceiptPrinterPage> {
   late final ReceiptPrinterController _printerController =
       ReceiptPrinterController();
   late final TextEditingController _tfController = TextEditingController();
+
+  final MPosControllerPrinter _printer = MPosControllerPrinter();
 
   @override
   void dispose() async {
@@ -252,8 +258,41 @@ class _ReceiptPrinterPageState extends State<ReceiptPrinterPage> {
   }
 
   void _printInLineMode(BuildContext context) async {
-    await _printerController.printInLineMode();
+    final imageBytes = await rootBundle.load('assets/adag_logo_print.png');
+    var base64Data = base64Encode(imageBytes.buffer.asUint8List());
+    try {
+      await _printer.setTransaction(1 /*Transaction In*/);
+      await _printer.printBase64Image(base64Data, 300, alignment: 1);
+      await _printer.printText('Check-in',fontType: 0, bold: 1, fontWidth: 2, fontHeight: 3, alignment: 1);
+      await _printer.printText('\n');
+      await _printer.printText('\n');
+      await _printer.printText('Date: 2023-10-21',fontType: 0, fontWidth: 1, fontHeight: 1, alignment: 1);
+      await _printer.printText('\n');
+      await _printer.printText('\n');
+      await _printer.printQRCode('http://localhost/checkin/eyJldmVudCI6IjEwNDg0LTEwNyIsImNyZXdfdXNlciI6IjU3Nzc2LTciLCJzdGFydCI6IjIwMjMtMDktMTEgMTY6MjU6NDMiLCJyb2xlIjoiQmFpbGFyaW4iLCJmZWUiOiIxMi4wIiwiZXhwaXJhdGlvbiI6IjIwMzMtMDktMTIgMDA6MDA6MDAiLCJzaWduYXR1cmUiOiIxNzNiZDE0MWZlMzVlMjcxZjUxMDRmZWZlMTAyNmI4ZSJ9', 205, 5, 51, alignment: 1);
+      await _printer.printText('\n');
+      await _printer.printText('Role: Dancer',fontType: 0, fontWidth: 1, fontHeight: 1, alignment: 1);
+      await _printer.printText('\n');
+      await _printer.printText('\n');
+      await _printer.printText('Fee: 13.0',fontType: 0, fontWidth: 1, fontHeight: 1, alignment: 1);
+      await _printer.printText('\n');
+      await _printer.printText('\n');
+      await _printer.printText('\n');
+      await _printer.printText('\n');
+      await _printer.printText('\n');
+    } catch (e) {
+  print(e);
+  } finally {
+  // start Printing.
+  await _printer.setTransaction(0 /*Transaction Out,*/);
   }
+
+
+  }
+  //
+  // void _printInLineMode(BuildContext context) async {
+  //   await _printerController.printInLineMode();
+  // }
 
   void _printInPageMode(BuildContext context) async {
     await _printerController.printInPageMode();
